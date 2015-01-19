@@ -25,12 +25,13 @@ $ curl -u karaf:karaf -X GET http://localhost:8181/cxf/echo/jaxrs/t2
   ```
 
 
-To solve this problem, the `JAASAuthenticationFeature` needs to be added to the cxf bus in addtion to adding the `JAASLoginInterceptor` to the jaxrs bean.
+To solve this problem, the `JAASAuthenticationFeature` needs to be added to the cxf bus. But when doing so, the `JAASAuthenticationFilter` cannot be used anymore and there are no nice and tidy 401 redirects anymore. The `JAASAuthenticationFilter` can only be used to set the JAXRS SecurityContext which does not cause a the context to run under the login users credentials. Hence the call to get the `Subject` from the `AccessControlContext` fails.
 
 ```xml
 <cxf:bus>
 	<cxf:features>
 		<bean class="org.apache.cxf.interceptor.security.JAASAuthenticationFeature">
+            <property name="contextName" value="karaf" />
 			<property name="reportFault" value="true" />
 		</bean>
 	</cxf:features>

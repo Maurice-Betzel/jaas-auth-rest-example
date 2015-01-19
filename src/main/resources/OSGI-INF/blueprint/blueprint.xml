@@ -22,6 +22,7 @@
 		<cxf:features>
 			<cxf:logging />
 			<bean class="org.apache.cxf.interceptor.security.JAASAuthenticationFeature">
+				<property name="contextName" value="karaf" />
 				<property name="reportFault" value="true" />
 			</bean>
 		</cxf:features>
@@ -31,9 +32,12 @@
 		<jaxrs:serviceBeans>
 			<bean class="com.fleurida.jaas.test.EchoServiceImpl" />
 		</jaxrs:serviceBeans>
+		<!-- this does not work with underlying cause outlined in http://karaf.922171.n3.nabble.com/Security-Subject-from-AccessControlContext-is-null-when-using-JAAS-and-CXF-JAASAuthenticationFilter-td4037821.html -->
+		<!-- 
 		<jaxrs:providers>
 			<ref component-id="authenticationFilter" />
 		</jaxrs:providers>
+		-->
 	</jaxrs:server>
 
 </blueprint>
