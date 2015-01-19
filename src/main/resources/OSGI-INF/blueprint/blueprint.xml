@@ -21,6 +21,9 @@
 	<cxf:bus>
 		<cxf:features>
 			<cxf:logging />
+			<bean class="org.apache.cxf.interceptor.security.JAASAuthenticationFeature">
+				<property name="reportFault" value="true" />
+			</bean>
 		</cxf:features>
 	</cxf:bus>
 

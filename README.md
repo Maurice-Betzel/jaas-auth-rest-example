@@ -23,3 +23,16 @@ $ curl -u karaf:karaf -X GET http://localhost:8181/cxf/echo/jaas/t1
 $ curl -u karaf:karaf -X GET http://localhost:8181/cxf/echo/jaxrs/t2
 {"Token":{"@echo":"t2","@timestamp":"2015-01-19T20:03:00.742+1000","Error":"","Principal":"karaf"}}
   ```
+
+
+To solve this problem, the `JAASAuthenticationFeature` needs to be added to the cxf bus in addtion to adding the `JAASLoginInterceptor` to the jaxrs bean.
+
+```xml
+<cxf:bus>
+	<cxf:features>
+		<bean class="org.apache.cxf.interceptor.security.JAASAuthenticationFeature">
+			<property name="reportFault" value="true" />
+		</bean>
+	</cxf:features>
+</cxf:bus>
+```
