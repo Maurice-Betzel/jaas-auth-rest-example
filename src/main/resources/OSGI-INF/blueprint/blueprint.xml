@@ -17,6 +17,8 @@
 	<bean id="authenticationFilter" class="org.apache.cxf.jaxrs.security.JAASAuthenticationFilter">
 		<property name="contextName" value="karaf" />
 		<property name="realmName" value="TEST JAAS" />
+		<!-- experimental feature -->
+		<property name="useDoAs" value="true"/>
 	</bean>
 
 	<cxf:bus>
