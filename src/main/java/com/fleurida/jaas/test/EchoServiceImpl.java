@@ -28,6 +28,7 @@ import java.security.AccessController;
 import java.security.Principal;
 import java.util.Set;
 
+import javax.annotation.security.RolesAllowed;
 import javax.security.auth.Subject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -50,6 +51,7 @@ public class EchoServiceImpl {
 
 	@GET
 	@Path("/jaas/{echotoken}")
+    @RolesAllowed("admin")
 	public Response echo(@PathParam("echotoken") String message) {
 
 		Token token = new Token(message);
